@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documento</title>
+    <style>
+        #display {
+            border: 2px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <button onclick="calculaPrecioConIva()">Calcula precio con IVA</button>
+    <button onclick="calculaPrecioConIvaFormulario()">Calcula precio</button>
+    <h2>Cálculo del IVA de un producto</h2>
+    Precio sin IVA <input value="100" type="number" id="precio-sin-iva">
+    Tipo <input type="number" max="3" min="1" id="tipo">
+
+    <p id="display">
+
+    </p>
+
+    <script>
+
+        function calculaPrecioConIvaFormulario() {
+            let precioSinIva = document.getElementById("precio-sin-iva").value;
+            let tipoValor = document.getElementById("tipo").value;
+            let precioIva = preciosConIva(precioSinIva, tipoValor);
+            display.innerHTML = "El precio con IVA es " + precioIva;
+            alert("Precio con IVA: " + precioIva);
+        }
+
+        function calculaPrecioConIva() {
+            let precio = prompt("Dime el precio sin IVA");
+            let tipo = prompt("¿Qué tipo de IVA desea (1, 2 o 3)?");
+            let precioIva = preciosConIva(precio, tipo);
+            let display = document.getElementById("display");
+            alert("Precio con IVA: " + precioIva);
+            if (puedePagarEfectivo(precioIva)) {
+                alert("Puede pagar en efectivo");
+            } else {
+                alert("NO puede pagar en efectivo");
+            }
+        }
+
+        function preciosConIva(precioSinIva, tipo) {
+            if (tipo == 1) {
+                return precioSinIva * 1.05;
+            } else if (tipo == 2) {
+                return precioSinIva * 1.10;
+            } else if (tipo == 3) {
+                return precioSinIva * 1.21;
+            } else {
+                alert("Debe seleccionar un tipo válido");
+            }
+        }
+
+        function puedePagarEfectivo(cantidad) {
+            return cantidad < 2000;
+        }
+
+    </script>
+</body>
+
+</html>
